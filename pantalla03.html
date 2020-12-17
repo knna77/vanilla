@@ -7,15 +7,25 @@
   </head>
   <body>
     <form>
-      Pregunta:<input type="text" id="pregunta" /><br />
+      Pregunta:<br /><textarea id="pregunta"></textarea><br /><br />
       <input type="radio" id="true" name="resposta" value="true" />
-      <label for="true">Verdadero</label><br />
+      <label for="true">Verdadero</label>
       <input type="radio" id="false" name="resposta" value="false" />
-      <label for="false">Falso</label><br />
-      Puntuación:<input type="number" id="puntos" /><br />
+      <label for="false">Falso</label><br /><br />
+      Puntuación:<input type="number" id="puntos" min="0" max="9" /><br /><br />
       <button type="button" id="atras">Atras</button>
       <button type="button" id="grabar">Grabar</button>
     </form>
-    <script type="text/javascript" src="js/01ex.js"></script>
+
+    <table>
+      <tr>
+        <td>Pregunta</td>
+        <td>Respuesta</td>
+        <td>Puntuación</td>
+        <td>Estado</td>
+      </tr>
+    </table>
+
+    <script type="text/javascript" src="js/03ex.js"></script>
   </body>
 </html>

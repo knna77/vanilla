@@ -1,20 +1,13 @@
 function isKeyPressed(event) {
-  //Concatene  en un and una polsació de la tecla alt i una polsació de la tecla F12 que equival al codi 123
   if (event.ctrlKey && event.keyCode == 121) {
     if (document.querySelector('input') == null) {
       creaH1('Usuario');
       creaInput();
-
-      console.log('cntrl+f10');
     }
   }
 }
-
-//document.addEventListener('keyup', isKeyPressed);
 document.addEventListener('keydown', isKeyPressed);
 function retarda(temps) {
-  var dobleTemps = temps * 2;
-  var seg = temps / 1000;
   var promesa = new Promise((resolve) => {
     setTimeout(() => {
       if (document.querySelector('input') == null) {
@@ -41,24 +34,43 @@ function creaInput() {
   let input = document.createElement('input');
   input.getAttribute('id', 'mail');
   document.body.appendChild(input);
-  input.focus();
+  setTimeout(() => {
+    input.focus();
+  }, 1);
   input.addEventListener('blur', function (ev) {
     let exp = /^[^@]+@[^@]+\.[a-zA-Z0-9_]{2,}$/;
     if (exp.test(input.value) == false) {
-      ev.preventDefault();
+      //ev.preventDefault();
       document.getElementById('info').innerHTML =
         '<p>Error: Correo no válido</p>';
-      // TO-DO no recupera el foco.
-      console.log('prefocus');
-
-      input.select();
-      input.focus();
-      console.log('postfocus');
+      setTimeout(() => {
+        input.focus();
+        input.select();
+      }, 1);
     } else {
-      console.log('cambia');
+      let caduca = 30;
+      let nombre = input.value;
+      let date = new Date();
+      let day = date.getDate();
+      let month = date.getMonth() + 1;
+      let year = date.getFullYear();
+      let hora = date.getHours();
+      let mins = date.getMinutes();
+      let seg = date.getSeconds();
+      let fecha = `${day}/${month}/${year}`;
+      let tiempo = `${hora}:${mins}:${seg}`;
+      setCookie('nombre', nombre, caduca);
+      setCookie('fecha', fecha, caduca);
+      setCookie('hora', tiempo, caduca);
       window.location.href = 'pantalla02.html';
     }
   });
 }
-
+function setCookie(nombre, valor, expiracion) {
+  var fecha = new Date();
+  fecha.setTime(fecha.getTime() + 1000 * 60 * 60 * 24 * expiracion);
+  var caduca = 'expires=' + fecha.toUTCString();
+  document.cookie =
+    nombre + '=' + valor + ';' + caduca + ';path=/;SameSite=Strict';
+}
 retarda(5000);
