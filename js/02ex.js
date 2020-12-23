@@ -1,9 +1,10 @@
 import { getCookie, setCookie, deleteCookie } from './cookies.js';
+//recuperem el nom
 var mail = getCookie('nombre');
+//creem una nova cookie identificada
 var user = getCookie('user' + mail);
 let strUser;
 let objUser;
-console.log('user:' + user);
 document.getElementById('nombre').innerHTML = mail;
 if (user == '') {
   document.getElementById('n1').innerHTML = 'Es tu primera visita';
@@ -28,20 +29,13 @@ let mins = date.getMinutes();
 let seg = date.getSeconds();
 let fecha = `${day}/${month}/${year}`;
 let horas = `${hora}:${mins}:${seg}`;
+//objecte amb les dades d'esta pantalla
 user = {
   correo: mail,
   fech: fecha,
   hora: horas,
 };
+//passem l'ojecte a json
 strUser = JSON.stringify(user);
+//gravem el  json en la cookie
 setCookie('user' + mail, strUser, caduca);
-/*var fecha = getCookie('fecha');
-var horas = getCookie('hora');*/
-
-console.log('mail' + mail);
-console.log('fecha' + fecha);
-console.log('hora' + horas);
-//console.log('cookies actuales:\n' + document.cookie);
-
-/*setCookie('fecha', fechaN, caduca);
-setCookie('hora', tiempo, caduca);*/
